@@ -1,0 +1,290 @@
+<!doctype html>
+
+<html>
+  <!--this is in progress-->
+
+  <head>
+    <title>website</title>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="the website has most of the features that HTML5 offers"
+    />
+    <meta name="keywords" content="website, example" />
+    <meta name="author" content="thomasreix" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="30" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+      body {
+        background-color: #ffaf0f;
+      }
+      h1 {
+        color: #0fafff;
+      }
+      p {
+        color: #5f0faf;
+        background-color: #ffaf0f;
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #5fff5f; color: #0f0f5f">
+    <header style="background-color: #0f5f0f; color: #0fafff">
+      <h1>welcome to my website</h1>
+      <a href="">table</a>
+      <a href="">media</a>
+      <a href="">style</a>
+      <a href="">lists</a>
+      <hr />
+    </header>
+
+    <main>
+      <h1 id="title">this is a website</h1>
+      <hr />
+
+      <form action="action_page.php" method="POST">
+        <div>
+          <label for="name">name:</label>
+          <input type="text" id="name" name="name" placeholder="smith" />
+        </div>
+        <div>
+          <label for="age">age:</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            min="0"
+            max="100"
+            value="37"
+          />
+        </div>
+        <div>
+          <label for="birthdate">birthdate:</label>
+          <input type="date" id="birthdate" name="birthdate" />
+        </div>
+        <div>
+          <label for="pass">password:</label>
+          <input type="password" id="pass" name="age" />
+        </div>
+        <div>
+          <label for="email">email:</label>
+          <input type="email" id="email" name="email" />
+        </div>
+        <div>
+          <label for="phone">phone:</label>
+          <input type="tel" id="phone" name="phone" />
+        </div>
+        <div>
+          <label>number of fingers:</label>
+
+          <label for="9">9</label>
+          <input type="radio" id="9" name="number_of_fingers" value="9" />
+          <label for="10">10</label>
+          <input type="radio" id="10" name="number_of_fingers" value="10" />
+          <label for="11">11</label>
+          <input type="radio" id="11" name="number_of_fingers" value="11" />
+        </div>
+        <div>
+          <label for="payment">payment:</label>
+          <select id="payment" name="payment">
+            <option value="visa">visa</option>
+            <option value="mastercard">mastercard</option>
+            <option value="giftcard">giftcard</option>
+          </select>
+        </div>
+        <div>
+          <label for="terms">I have read the terms of service:</label>
+          <input type="checkbox" id="terms" name="terms" />
+        </div>
+        <br />
+        <div>
+          <input type="reset" />
+        </div>
+        <div>
+          <input type="submit" />
+        </div>
+      </form>
+      <br />
+
+      <a
+        ><big><b>this is librairy of juggling</b></big></a
+      ><br />
+      <iframe
+        style="border: 0"
+        src="https://libraryofjuggling.com/"
+        width="300"
+      ></iframe
+      ><br />
+      <a href="https://libraryofjuggling.com/">
+        <button style="border-radius: 0; border-color: #ff0f0f">
+          visit librairy of juggling
+        </button> </a
+      ><br />
+
+      <br /><a
+        href="https://en.wikipedia.org/wiki/Website"
+        target="_blank"
+        title="this takes you to wikipedia"
+      >
+        what is a website </a
+      ><br /><br />
+
+      <iframe src="ad.html" width="300"></iframe><br />
+
+      <button onclick="doSomething()">
+        <a>do something</a>
+      </button>
+      <p id="test">something not done</p>
+
+      <script>
+        function doSomething() {
+          document.getElementById("test").innerHTML = "something done";
+        }
+      </script>
+
+      <h2>is it a fruit</h2>
+      <table bgcolor="black">
+        <tr bgcolor="grey">
+          <th width="80">apple</th>
+          <th width="80">banana</th>
+          <th width="80">tomato</th>
+          <th width="80">carrot</th>
+          <th width="80">orange</th>
+        </tr>
+        <tr bgcolor="lightgrey" align="center">
+          <td>YES</td>
+          <td>YES</td>
+          <td>NO</td>
+          <td>NO</td>
+          <td>YES</td>
+        </tr>
+      </table>
+      <br />
+
+      <a
+        ><big><b>this is the flag of france</b></big></a
+      ><br />
+      <a href="https://en.wikipedia.org/wiki/France" target="_blank">
+        <img
+          src="media/france.jpg"
+          height="200"
+          alt="this is the flag of france"
+          title="click to know more" /></a
+      ><br />
+      <audio controls autoplay loop src="media/what.mp3"></audio><br />
+      <video
+        controls
+        muted
+        src="media/watermelon_tutorial.mp4"
+        width="300"
+      ></video
+      ><br />
+
+      <a href="page_2.html" target="_self" title="this will take you to page 2"
+        >page 2</a
+      ><br />
+
+      <h2>these are diffrent type of styles</h2>
+      <a class="odd">this is normal text</a><br />
+      <a class="even">this is <b>bold</b> text</a><br />
+      <a class="odd">this is <i>italic</i> text</a><br />
+      <a class="even">this is <big>big</big> text</a><br />
+      <a class="odd">this is <small>small</small> text</a><br />
+      <a class="even">this is <sub>subscript</sub> text</a><br />
+      <a class="odd">this is <sup>superscript</sup> text</a><br />
+      <a class="even">this is <ins>insterted</ins> text</a><br />
+      <a class="odd">this is <del>deleted</del> text</a><br />
+      <a class="even">this is <mark>marked</mark> text</a><br />
+
+      <h2 style="color: rgb(255, 15, 15)">a list</h2>
+      <ul>
+        <li>text</li>
+        <ul>
+          <li>title</li>
+          <li>header</li>
+          <li>paragraph</li>
+          <li>lists</li>
+          <ul>
+            <li>unordered list</li>
+            <li>ordered list</li>
+            <li>description list</li>
+          </ul>
+        </ul>
+        <li>image</li>
+        <ol type="A">
+          <li>PNG</li>
+          <li>JPEG</li>
+        </ol>
+        <li>audio</li>
+        <ol>
+          <li>MP3</li>
+          <li>WAV</li>
+        </ol>
+        <li>video</li>
+        <ol type="I">
+          <li>MP4</li>
+          <li>MOV</li>
+        </ol>
+        <li>links</li>
+        <ol type="a">
+          <li>website</li>
+          <li>email</li>
+        </ol>
+      </ul>
+
+      <h2 style="color: rgb(255, 15, 15)">description list</h2>
+      <dl>
+        <dt>HTML</dt>
+        <dd>this adds structure to a webpage</dd>
+        <dt>CSS</dt>
+        <dd>this adds style to a webpage</dd>
+        <dt>JS</dt>
+        <dd>this adds functionality to a webpage</dd>
+      </dl>
+      <br />
+
+      <div style="background-color: #5f0f5f; color: #ffaf0f">
+        <p>
+          A website, or web site, is any web page whose content is identified by
+          a common domain name and is published on at least one web server.
+          <span style="color: #ffffff"
+            >Websites are typically dedicated to a particular topic or purpose,
+            such as news, education, commerce, entertainment, or social
+            media.</span
+          >
+          Hyperlinking between web pages guides the navigation of the site,
+          which often starts with a home page. The most-visited sites are
+          Google, YouTube, and Facebook.
+        </p>
+        <p id="p0">
+          All publicly-accessible websites collectively constitute the World
+          Wide Web, which is accessed via the Internet. There are also private
+          websites that can only be accessed on a private network, such as a
+          company's internal website for its employees. Users can access
+          websites on a range of devices, including desktops, laptops, tablets,
+          and smartphones. The app used on these devices is called a web
+          browser.
+        </p>
+      </div>
+      <br />
+
+      <h1>header 1</h1>
+      <h2>header 2</h2>
+      <h3>header 3</h3>
+      <h4>header 4</h4>
+      <h5>header 5</h5>
+      <h6>header 6</h6>
+    </main>
+
+    <footer style="background-color: #0f5f0f; color: #0fafff">
+      <hr />
+      &copy; copyright reserved<br />
+      <a href="mailto:user@mail.com" target="_blank" title="send an email">
+        email me
+      </a>
+    </footer>
+  </body>
+</html>

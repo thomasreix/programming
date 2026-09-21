@@ -1,0 +1,145 @@
+/* --- Global Reset & Centering --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: #0f172a;
+  color: #f8fafc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* --- Card Container --- */
+.timer-card {
+  background-color: #1e293b;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  border: 1px solid #334155;
+}
+
+h2 {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* --- Input Area --- */
+.inputs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  background-color: #334155;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.input-box:focus-within {
+  border-color: #38bdf8;
+}
+
+input[type="number"] {
+  width: 45px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.unit {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* --- Main Display --- */
+#display {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #38bdf8;
+  margin: 1rem 0 1.5rem 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -1px;
+}
+
+/* --- Start/Reset Button --- */
+#button {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  background-color: #0284c7;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+#button:hover {
+  background-color: #0369a1;
+  transform: translateY(-2px);
+}
+
+#button:active {
+  transform: translateY(0);
+}
+
+/* Red button when active */
+#button.reset-mode {
+  background-color: #ef4444;
+}
+
+#button.reset-mode:hover {
+  background-color: #dc2626;
+}
+
+/* --- Lapses Badge --- */
+.lapse-section {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#lapses {
+  background-color: #334155;
+  color: #38bdf8;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-weight: 700;
+}

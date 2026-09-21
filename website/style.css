@@ -1,0 +1,16 @@
+body {
+  background-color: black;
+  color: #0fafff
+}
+#p0 {
+  color: black;
+}
+#title {
+  color: brown;
+}
+.odd {
+  color: #0f5f0f;
+}
+.even {
+  color: white;
+}
