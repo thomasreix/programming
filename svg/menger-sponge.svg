@@ -1,13 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg"
     width="800"
     height="600"
-    viewBox="0 0 800 600"
-    style="background-color: #0f0f0f;">
+    viewBox="0 0 800 600">
 
    <polygon
-        points="200,200 500,290 502,390 302,330 304,430 404,460 402,360 502,390 506,590 206,500 "
-        fill="#c8c7ff"
-        stroke="#625fd7"
-        stroke-width="2"/>
+        points="100,200 250,290 252,340 152,280 154,330 204,360 202,310 252,340 256,440 106,350 "
+        fill="#00ff00"
+        stroke-width="0"/>
+
+   <polygon
+        points="250,300 400,210 402,260 302,320 304,370 354,340 352,290 402,260 406,360 256,450 "
+        fill="#0000ff"
+        stroke-width="0"/>
 
 </svg>
