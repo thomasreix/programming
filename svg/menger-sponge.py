@@ -22,18 +22,44 @@ def generate_face(iteration):
     return face_points
 
 
-def draw_face(face_points, face_x, face_y, size, ratio, side, colors):
+def map_points(points, face_x, face_y, size, ratio, side):
+    mapped_points = []
+    lenth = points[1][0]
     if side is LEFT:
-        for point in face_points:
-            
+        for point in points:
+            point_x = point[0]
+            point_y = point[1]
+            mapped_point_x = point_x / lenth * ratio[0] * size + face_x
+            mapped_point_y = (point_y + point_x / lenth) / lenth * ratio[
+                1
+            ] * size + face_y
+            mapped_point = (mapped_point_x, mapped_point_y)
+            mapped_points.append(mapped_point)
+    elif side is RIGHT:
+        for point in points:
+            point_x = -point[0]
+            point_y = point[1]
+            mapped_point_x = (
+                (point_x / lenth * ratio[2] * size) + ratio[0] * size + ratio[2] * size + face_x
+            )
+            mapped_point_y = (point_y - point_x / lenth) / lenth * ratio[
+                1
+            ] * size + face_y
+            mapped_point = (mapped_point_x, mapped_point_y)
+            mapped_points.append(mapped_point)
+
+    return mapped_points
 
 
+def draw_face(face_points, face_x, face_y, size, ratio, side, colors):
+    mapped_points = map_points(face_points, face_x, face_y, size, ratio, side)
 
     points_string = ""
+    color = colors[side]
 
-    for point in points:
-        x = point[0]
-        y = point[1]
+    for mapped_point in mapped_points:
+        x = mapped_point[0]
+        y = mapped_point[1]
         points_string += f"{x},{y} "
 
     face = f"""<polygon
@@ -70,13 +96,17 @@ def main():
     iteration = 1
     face_x, face_y = 100, 100
     size = 50
-    ratio = [3, 4]
+    ratio = [3, 4, 3]
     side = LEFT
 
     face_points = generate_face(iteration)
     left_face = draw_face(face_points, face_x, face_y, size, ratio, side, colors)
 
-    poligons = [left_face]
+    side = RIGHT
+    face_points = generate_face(iteration)
+    right_face = draw_face(face_points, face_x, face_y, size, ratio, side, colors)
+
+    poligons = [left_face, right_face]
     generate_svg(poligons)
 
 
