@@ -21,34 +21,59 @@ def generate_face(iteration):
 
     return face_points
 
-
 def map_points(points, face_x, face_y, size, ratio, side):
     mapped_points = []
     lenth = points[1][0]
-    if side is LEFT:
+    if side is UP:
         for point in points:
-            point_x = point[0]
-            point_y = point[1]
-            mapped_point_x = point_x / lenth * ratio[0] * size + face_x
-            mapped_point_y = (point_y + point_x / lenth) / lenth * ratio[
-                1
-            ] * size + face_y
+            x = point[0]
+            y = point[1]
+            mapped_point_x = (
+                x / lenth * ratio[0] * size + y / lenth * ratio[2] * size + face_x
+            )
+            mapped_point_y = (
+                x / lenth * ratio[1] * size - (y / lenth * ratio[1]) * size + face_y
+            )
             mapped_point = (mapped_point_x, mapped_point_y)
             mapped_points.append(mapped_point)
-    elif side is RIGHT:
+    elif side is LEFT:
         for point in points:
-            point_x = -point[0]
-            point_y = point[1]
+            x = point[0]
+            y = point[1]
+            mapped_point_x = x / lenth * ratio[0] * size + face_x
+            mapped_point_y = (y + x / lenth) / lenth * ratio[1] * size + face_y
+            mapped_point = (mapped_point_x, mapped_point_y)
+            mapped_points.append(mapped_point)
+    else:  # RIGHT:
+        for point in points:
+            x = -point[0]
+            y = point[1]
             mapped_point_x = (
-                (point_x / lenth * ratio[2] * size) + ratio[0] * size + ratio[2] * size + face_x
+                (x / lenth * ratio[2] * size)
+                + ratio[0] * size
+                + ratio[2] * size
+                + face_x
             )
-            mapped_point_y = (point_y - point_x / lenth) / lenth * ratio[
-                1
-            ] * size + face_y
+            mapped_point_y = (y - x / lenth) / lenth * ratio[1] * size + face_y
             mapped_point = (mapped_point_x, mapped_point_y)
             mapped_points.append(mapped_point)
 
-    return mapped_points
+    rounded_points = []
+    for mapped_point in mapped_points:
+        rounded_point_x = clean_round(mapped_point[0])
+        rounded_point_y = clean_round(mapped_point[1])
+        rounded_point = (rounded_point_x, rounded_point_y)
+        rounded_points.append(rounded_point)
+
+    return rounded_points
+
+def clean_round(number):
+    number = round(number, 2)
+
+    if number == int(number):
+        return int(number)
+
+    return number
 
 
 def draw_face(face_points, face_x, face_y, size, ratio, side, colors):
@@ -64,30 +89,34 @@ def draw_face(face_points, face_x, face_y, size, ratio, side, colors):
 
     face = f"""<polygon
         points="{points_string}"
-        fill="{color}"
-        stroke-width="0"/>
-"""
+        fill="{color}"/>"""
 
     return face
 
 
-def generate_svg(poligons):
-    svg = f"""<svg xmlns="http://www.w3.org/2000/svg"
-    width="800"
-    height="600"
-    viewBox="0 0 800 600">
-
+def generate_svg(poligons, filename):
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg">
 """
 
     for poligon in poligons:
         svg += f"   {poligon}\n"
 
     svg += "</svg>"
-    with open("menger-sponge.svg", "w") as file:
+    with open(f"{filename}.svg", "w") as file:
         file.write(svg)
 
 
+def filesize(filename):
+    file = open(f"{filename}.svg", "rb")
+    file.seek(0, 2)
+    size = file.tell()
+    file.close()
+    return size
+
+
 def main():
+    filename = "menger-sponge"
+
     up_color = "#ff0000"
     left_color = "#00ff00"
     right_color = "#0000ff"
@@ -97,17 +126,17 @@ def main():
     face_x, face_y = 100, 100
     size = 50
     ratio = [3, 4, 3]
-    side = LEFT
 
     face_points = generate_face(iteration)
-    left_face = draw_face(face_points, face_x, face_y, size, ratio, side, colors)
+    up_face = draw_face(face_points, face_x, face_y, size, ratio, UP, colors)
+    left_face = draw_face(face_points, face_x, face_y, size, ratio, LEFT, colors)
+    right_face = draw_face(face_points, face_x, face_y, size, ratio, RIGHT, colors)
 
-    side = RIGHT
-    face_points = generate_face(iteration)
-    right_face = draw_face(face_points, face_x, face_y, size, ratio, side, colors)
+    poligons = [up_face, left_face, right_face]
+    generate_svg(poligons, filename)
 
-    poligons = [left_face, right_face]
-    generate_svg(poligons)
+    size = filesize(filename)
+    print(f"{filename}.svg has a size of {size} bytes")
 
 
 if __name__ == "__main__":
