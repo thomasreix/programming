@@ -21,21 +21,29 @@ def generate_face(iteration):
 
     return face_points
 
+
 def map_points(points, face_x, face_y, size, ratio, side):
     mapped_points = []
     lenth = points[1][0]
     if side is UP:
         for point in points:
-            x = point[0]
-            y = point[1]
+            x, y = point
+
+            x_ratio = x / lenth
+            y_ratio = y / lenth
+
             mapped_point_x = (
-                x / lenth * ratio[0] * size + y / lenth * ratio[2] * size + face_x
+                x_ratio * ratio[0] * size + y_ratio * ratio[2] * size + face_x
             )
+
             mapped_point_y = (
-                x / lenth * ratio[1] * size - (y / lenth * ratio[1]) * size + face_y
+                x_ratio * ratio[1] * size / lenth
+                - y_ratio * ratio[1] * size / lenth
+                + face_y
             )
-            mapped_point = (mapped_point_x, mapped_point_y)
-            mapped_points.append(mapped_point)
+
+            mapped_points.append((mapped_point_x, mapped_point_y))
+
     elif side is LEFT:
         for point in points:
             x = point[0]
@@ -66,6 +74,7 @@ def map_points(points, face_x, face_y, size, ratio, side):
         rounded_points.append(rounded_point)
 
     return rounded_points
+
 
 def clean_round(number):
     number = round(number, 2)
