@@ -120,6 +120,14 @@ int main() {
   std::cout << "the ceilling of " << pi << " is " << numC << '\n';
   std::cout << "the floor of " << pi << " is " << numF << '\n';
 
+  std::cout << '\n';
+
+
+  double sideA = 2;
+  double sideB = 5;
+  double sideC = sqrt(pow(sideA, 2) + pow(sideB, 2));
+
+  std::cout << "a right triangle with agasent sides lenth " << sideA << " and " << sideB << " has a hypotenus of " << sideC << '\n';
 
   
   std::cout << '\n';
