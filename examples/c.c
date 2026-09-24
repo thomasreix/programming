@@ -801,7 +801,6 @@ int main() {
   free(vehicule);  // returns space back
   vehicule = NULL; // avoids dangling pointers
 
-
   // calloc() --> allocates memory dynamicly and sets all alocated bytes to 0
 
   // int players = 10;
@@ -818,27 +817,23 @@ int main() {
 
   // realloc() --> reallocation resize previously allocated memory
 
-  
   // DIGITAL CLOCK
 
-  time_t rawtime = 0;       // Jan 1, 1970 (Epoch)
+  time_t rawtime = 0; // Jan 1, 1970 (Epoch)
   struct tm *pTime = NULL;
 
   printf("\nDIGITAL CLOCK\n");
 
   bool isRunning = true;
   while (isRunning) {
-      time(&rawtime);
-      pTime = localtime(&rawtime);
+    time(&rawtime);
+    pTime = localtime(&rawtime);
 
-      printf("\r%02d:%02d:%02d",
-            pTime->tm_hour,
-            pTime->tm_min,
-            pTime->tm_sec);
+    printf("\r%02d:%02d:%02d", pTime->tm_hour, pTime->tm_min, pTime->tm_sec);
 
-      fflush(stdout);
+    fflush(stdout);
 
-      sleep(1);
+    sleep(1);
   }
 
   printf("\n");
