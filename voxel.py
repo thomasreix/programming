@@ -31,11 +31,11 @@ def voxel():
 
 # Maps each face index to the normal direction (offset to place a new voxel)
 FACE_NORMALS = {
-    0: (1, 0, 0),   # +X
+    0: (1, 0, 0),  # +X
     1: (-1, 0, 0),  # -X
-    2: (0, 0, 1),   # +Z
+    2: (0, 0, 1),  # +Z
     3: (0, 0, -1),  # -Z
-    4: (0, 1, 0),   # +Y
+    4: (0, 1, 0),  # +Y
     5: (0, -1, 0),  # -Y
 }
 
@@ -259,8 +259,15 @@ def ray_triangle_intersection(v0, v1, v2):
     return None
 
 
-def find_looked_at_face(voxel_positions_set, voxel_positions, vertices, faces, camera_position, camera_rotation):
-    best_distance = float('inf')
+def find_looked_at_face(
+    voxel_positions_set,
+    voxel_positions,
+    vertices,
+    faces,
+    camera_position,
+    camera_rotation,
+):
+    best_distance = float("inf")
     best_voxel = None
     best_face_idx = None
     best_face_tuple = None
@@ -398,7 +405,7 @@ def main():
     color = ["#0f0f0f", "#0faf4f"]
     line_width = 2
 
-    #pygame.event.set_grab(True)
+    # pygame.event.set_grab(True)
     pygame.mouse.set_visible(False)
 
     max_reach = 10  # Maximum distance for placing/looking at voxels
@@ -440,7 +447,12 @@ def main():
 
         # Find which face the crosshair is pointing at
         looked_voxel, looked_face, looked_face_idx = find_looked_at_face(
-            voxel_positions_set, voxel_positions, vertices, faces, camera_position, camera_rotation
+            voxel_positions_set,
+            voxel_positions,
+            vertices,
+            faces,
+            camera_position,
+            camera_rotation,
         )
 
         # Enforce max reach distance

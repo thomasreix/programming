@@ -1,58 +1,54 @@
-def decimal_to_binary(number: int) -> str:
-    binary = ""
-    while number > 0:
-        binary = str(number % 2) + binary
-        number //= 2
+from pynput import mouse, keyboard
 
-    return binary
+shift = False
+ctrl = False
+alt = False
 
 
-def binary_to_decimal(binary: str) -> int:
-    decimal = 0
+def on_key_press(key):
+    global shift, ctrl, alt
 
-    for i, bit in enumerate(reversed(binary)):
-        decimal += int(bit) * (2**i)
-
-    return decimal
-
-
-def decimal_to_byte(number: int) -> str:
-    if not 0 <= number <= 255:
-        return ""
-
-    binary = decimal_to_binary(number)
-    return binary.zfill(8)
+    if key in (keyboard.Key.shift, keyboard.Key.shift_l, keyboard.Key.shift_r):
+        shift = True
+    elif key in (keyboard.Key.ctrl, keyboard.Key.ctrl_l, keyboard.Key.ctrl_r):
+        ctrl = True
+    elif key in (keyboard.Key.alt, keyboard.Key.alt_l, keyboard.Key.alt_r):
+        alt = True
 
 
-def byte_opposite(binary: str) -> str:
-    if len(binary) != 8:
-        return ""
+def on_key_release(key):
+    global shift, ctrl, alt
 
-    opposite = ""
-
-    for bit in binary:
-        opposite += "1" if bit == "0" else "0"
-
-    return opposite
-
-
-def main():
-    decimal_1 = 648
-    binary_1 = decimal_to_binary(decimal_1)
-    print(f"{decimal_1} in binary is {binary_1}")
-
-    binary_2 = "110110011101"
-    decimal_2 = binary_to_decimal(binary_2)
-    print(f"{binary_2} in decimal is {decimal_2}")
-
-    decimal_3 = 190
-    byte_3 = decimal_to_byte(decimal_3)
-    print(f"{decimal_3} in 8-bit binary is {byte_3}")
-
-    byte_4 = "10011000"
-    opposite_byte_4 = byte_opposite(byte_4)
-    print(f"The opposite of {byte_4} is {opposite_byte_4}")
+    if key in (keyboard.Key.shift, keyboard.Key.shift_l, keyboard.Key.shift_r):
+        shift = False
+    elif key in (keyboard.Key.ctrl, keyboard.Key.ctrl_l, keyboard.Key.ctrl_r):
+        ctrl = False
+    elif key in (keyboard.Key.alt, keyboard.Key.alt_l, keyboard.Key.alt_r):
+        alt = False
 
 
-if __name__ == "__main__":
-    main()
+def on_click(x, y, button, pressed):
+    if not pressed or button != mouse.Button.left:
+        return
+
+    if shift and alt:
+        print("all points removed")
+
+    elif shift:
+        print(f"A = ({x}, {y})")
+
+    elif ctrl:
+        print("generate function")
+
+    elif alt:
+        print("point removed")
+
+
+mouse_listener = mouse.Listener(on_click=on_click)
+keyboard_listener = keyboard.Listener(on_press=on_key_press, on_release=on_key_release)
+
+mouse_listener.start()
+keyboard_listener.start()
+
+keyboard_listener.join()
+mouse_listener.stop()

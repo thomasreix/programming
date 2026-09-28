@@ -1,3 +1,5 @@
+from math import sqrt
+
 UP = 0
 LEFT = 1
 RIGHT = 2
@@ -98,7 +100,9 @@ def draw_face(face_points, face_x, face_y, size, ratio, side, colors):
 
     face = f"""<polygon
         points="{points_string}"
-        fill="{color}"/>"""
+        fill="{color}"
+        stroke="#000000"
+        stroke-width="2"/>"""
 
     return face
 

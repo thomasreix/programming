@@ -122,14 +122,85 @@ int main() {
 
   std::cout << '\n';
 
-
   double sideA = 2;
   double sideB = 5;
   double sideC = sqrt(pow(sideA, 2) + pow(sideB, 2));
 
   std::cout << "a right triangle with agasent sides lenth " << sideA << " and " << sideB << " has a hypotenus of " << sideC << '\n';
+  
+  std::cout << '\n';
+
+  int time = 15;
+
+  if (time > 12){
+    std::cout << "it's the afternoon" << '\n';
+  }
+  else if (time < 12){
+    std::cout << "it's the morning" << '\n';
+  }
+  else{
+    std::cout << "the select time should be between 0 and 24" << '\n';
+  }
+
+  int month = 9;
+
+  switch (month)
+  {
+  case 1:
+    std::cout << "it's january";
+    break;
+  case 2:
+    std::cout << "it's february";
+    break;
+  case 3:
+    std::cout << "it's march";
+    break;
+  case 4:
+    std::cout << "it's may";
+    break;
+  case 5:
+    std::cout << "it's april";
+    break;
+  case 6:
+    std::cout << "it's june";
+    break;
+  case 7:
+    std::cout << "it's july";
+    break;
+  case 8:
+    std::cout << "it's august";
+    break;
+  case 9:
+    std::cout << "it's september";
+    break;
+  case 10:
+    std::cout << "it's october";
+    break;
+  case 11:
+    std::cout << "it's november";
+    break;
+  case 12:
+    std::cout << "it's december";
+    break;
+
+  default:
+    std::cout << "month should be an integer 1-12";
+    break;
+  }
+
+  std::cout << '\n';
+  std::cout << '\n';
+
+  // ternary operator ?: = replacemanr of if/else statement
+
+  int population = 4200;
+  population >= 5000 ? std::cout << "the population lives in a city" << '\n' : std::cout << "the population lives in a village" << '\n';
+
+  int number = 5;
+  number % 2 ? std::cout << number << " is odd" << '\n' : std::cout << number << " is even" << '\n' ;
 
   
+
   std::cout << '\n';
   return 0;
 }
