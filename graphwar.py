@@ -105,7 +105,7 @@ def point_graph(point, border):
 
 
 def main():
-    border = True
+    border = False
     points = []
 
     inputs = get_inputs()
@@ -151,8 +151,11 @@ def main():
                 print("\033[F\033[K", end="", flush=True)  # removes previous line
 
         elif action == REMOVE_ALL_POINTS:
+            points_lenth = len(points)
+            if points:
+                for i in range(points_lenth):
+                    print("\033[F\033[K", end="", flush=True)  # removes previous line
             points = []
-
 
 if __name__ == "__main__":
     main()
