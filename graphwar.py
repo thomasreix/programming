@@ -72,7 +72,7 @@ def compute_slopes(points):
         if dx > 0:
             slope = dy / dx
         else:
-            dx += 1/1000000
+            dx += 1 / 1000000
             slope = dy / dx
         slopes.append(slope)
 
@@ -83,8 +83,10 @@ def compute_function(points, slopes):
     function = f"({points[0][1]})+({slopes[0]})*(x-({points[0][0]}))"
     slopes_lenth = len(slopes)
     for i in range(slopes_lenth - 1):
-        constant = (slopes[i+1]-slopes[i]) / 2
-        function += f"+({constant})*(abs(x-({points[i+1][0]}))+x-({points[i+1][0]}))"
+        constant = (slopes[i + 1] - slopes[i]) / 2
+        function += (
+            f"+({constant})*(abs(x-({points[i + 1][0]}))+x-({points[i + 1][0]}))"
+        )
     return function
 
 
@@ -156,6 +158,7 @@ def main():
                 for i in range(points_lenth):
                     print("\033[F\033[K", end="", flush=True)  # removes previous line
             points = []
+
 
 if __name__ == "__main__":
     main()

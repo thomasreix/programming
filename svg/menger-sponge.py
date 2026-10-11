@@ -1,3 +1,6 @@
+from svg_utils import generate_svg
+
+
 def compute_sponge(iteration):
     voxels = [(0, 0, 0)]
     for i in range(iteration):
@@ -46,7 +49,7 @@ def project_voxels(voxels, iteration, size, position, proportions, colors):
             (x + a, y + 2),
             (x, y + b + 1),
             (x + a + c, y + b + 1),
-            (x + a, y + b + 2)
+            (x + a, y + b + 2),
         ]
 
         scaled_points = []
@@ -56,33 +59,32 @@ def project_voxels(voxels, iteration, size, position, proportions, colors):
             scaled_point = (scaled_point_x, scaled_point_y)
             scaled_points.append(scaled_point)
 
-        face_up = [colors[0], scaled_points[0], scaled_points[1], scaled_points[3], scaled_points[2]]
+        face_up = [
+            colors[0],
+            scaled_points[0],
+            scaled_points[1],
+            scaled_points[3],
+            scaled_points[2],
+        ]
         polygons.append(face_up)
-        face_left = [colors[1], scaled_points[1], scaled_points[4], scaled_points[6], scaled_points[3]]
+        face_left = [
+            colors[1],
+            scaled_points[1],
+            scaled_points[4],
+            scaled_points[6],
+            scaled_points[3],
+        ]
         polygons.append(face_left)
-        face_right = [colors[2], scaled_points[3], scaled_points[6], scaled_points[5], scaled_points[2]]
+        face_right = [
+            colors[2],
+            scaled_points[3],
+            scaled_points[6],
+            scaled_points[5],
+            scaled_points[2],
+        ]
         polygons.append(face_right)
 
     return polygons
-
-
-def generate_svg(polygons, filename):
-    svg = """<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" >"""
-
-    for polygon in polygons:
-        point_string = ""
-        color = polygon[0]
-        for i in range(len(polygon) - 1):
-            x = polygon[i + 1][0]
-            y = polygon[i + 1][1]
-            point_string += f" {x},{y}"
-
-        svg += f"""\n   <polygon points="{point_string}" fill="{color}"/>"""
-
-    svg += "\n</svg>"
-
-    with open(f"{filename}.svg", "w") as file:
-        file.write(svg)
 
 
 def main():
@@ -93,17 +95,18 @@ def main():
     right_color = "#0000ff"
     colors = [up_color, left_color, right_color]
 
-    iteration = 2
+    iteration = 1
     size = 10
-    position = (100 + 3 ** iteration * 50 , 100 + 3 ** iteration * 50)
+    position = (200, 100)
     proportions = (3, 4, 3)
 
     menger_voxels = compute_sponge(iteration)
     ordered_voxels = order_voxels(menger_voxels, iteration)
-    #ordered_voxels = [(0, 0, 0), (1, 0, 0)]
+    # ordered_voxels = [(0, 0, 0), (1, 0, 0)]
     polygons = project_voxels(
         ordered_voxels, iteration, size, position, proportions, colors
     )
+    print(polygons)
 
     generate_svg(polygons, filename)
 
