@@ -1,10 +1,9 @@
+import sys
 from dataclasses import dataclass
-from math import cos, sin, pi, sqrt
+from math import cos, pi, sin, sqrt
 
 import pygame
 from pygame import Surface
-
-import sys
 
 
 @dataclass

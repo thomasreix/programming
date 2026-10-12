@@ -1,4 +1,4 @@
-from pynput import mouse, keyboard
+from pynput import keyboard, mouse
 from pyperclip import copy as clipboard
 
 WINDOW_TOP = 14

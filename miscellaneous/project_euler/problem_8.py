@@ -6,7 +6,8 @@ for i in range(math.floor(math.log(n))):
     N.append(math.floor(n % (10**i)))
 product = 0
 for i in range(len(N) - 12):
-    if product < (
+    product = max(
+        product,
         N[i]
         * N[i + 1]
         * N[i + 2]
@@ -19,22 +20,7 @@ for i in range(len(N) - 12):
         * N[i + 9]
         * N[i + 10]
         * N[i + 11]
-        * N[i + 12]
-    ):
-        product = (
-            N[i]
-            * N[i + 1]
-            * N[i + 2]
-            * N[i + 3]
-            * N[i + 4]
-            * N[i + 5]
-            * N[i + 6]
-            * N[i + 7]
-            * N[i + 8]
-            * N[i + 9]
-            * N[i + 10]
-            * N[i + 11]
-            * N[i + 12]
-        )
+        * N[i + 12],
+    )
 
 print(product)

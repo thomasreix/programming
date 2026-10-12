@@ -1,12 +1,12 @@
 import sys
-import pygame
-
 from random import random
+
+import pygame
 
 CELL_SIZE = 10
 
 
-def random_grid(width, height):
+def random_grid(width: int, height: int) -> list[list]:
     grid = []
     for x in range(height):
         row = []
@@ -17,20 +17,16 @@ def random_grid(width, height):
     return grid
 
 
-def display_grid(screen, grid, color):
-    y = 0
-    for row in grid:
-        x = 0
-        for cell in row:
+def display_grid(screen, grid: list[list], color: str):
+    for y, row in enumerate(grid):
+        for x, cell in enumerate(row):
             if cell == 1:
                 pygame.draw.rect(
                     screen, color, (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 )
-            x += 1
-        y += 1
 
 
-def count_neigbors(grid, x, y):
+def count_neigbors(grid: list[list], x: int, y: int):
     neighbors = 0
     for i in [-1, 0, 1]:
         row = (y + i) % len(grid)
@@ -43,25 +39,17 @@ def count_neigbors(grid, x, y):
     return neighbors
 
 
-def update_grid(grid):
+def update_grid(grid: list[list]) -> list[list]:
     new_grid = []
-    y = 0
-    for row in grid:
+    for y, row in enumerate(grid):
         new_row = []
-        x = 0
-        for cell in row:
+        for x, cell in enumerate(row):
             neighbors = count_neigbors(grid, x, y)
             new_cell = 0
-            if cell == 1:
-                if neighbors in [2, 3]:
-                    new_cell = 1
-            if cell == 0:
-                if neighbors == 3:
-                    new_cell = 1
+            if (cell == 1 and neighbors in [2, 3]) or (cell == 0 and neighbors == 3):
+                new_cell = 1
             new_row.append(new_cell)
-            x += 1
         new_grid.append(new_row)
-        y += 1
     return new_grid
 
 
@@ -72,7 +60,7 @@ def main():
 
     black = "#0f0f0f"
     white = "#ffffff"
-    orange = "#ef934d"
+    _orange = "#ef934d"
 
     grid = random_grid(width // CELL_SIZE, height // CELL_SIZE)
 

@@ -1,7 +1,8 @@
-import sys
 import random
-import pygame
+import sys
 from math import sqrt
+
+import pygame
 
 
 def initialize_particles(number_of_particles, height, width, types):

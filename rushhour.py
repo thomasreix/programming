@@ -2,13 +2,28 @@ import sys
 
 import pygame
 
-
 BOARD_SIZE = 6
 HORIZONTAL_CAR = 0
 VERTICAL_CAR = 1
+HORIZONTAL_BUS = 2
+VERTICAL_BUS = 3
 
 
-def levels(n):
+LEVEL_KEYS = [
+    pygame.K_1,
+    pygame.K_2,
+    pygame.K_3,
+    pygame.K_4,
+    pygame.K_5,
+    pygame.K_6,
+    pygame.K_7,
+    pygame.K_8,
+    pygame.K_9,
+    pygame.K_0,
+]
+
+
+def levels(n: int) -> list[tuple[int, int, int]]:
     levels = [
         [(0, 2, 0), (4, 2, 1)],
         [(1, 2, 0), (4, 2, 1), (3, 1, 0), (2, 0, 1), (4, 4, 1)],
@@ -22,8 +37,8 @@ def levels(n):
     return levels[n - 1]
 
 
-def draw_board(screen, screen_size, even_color, odd_color):
-    cell_size = screen_size / BOARD_SIZE
+def draw_board(screen, width: int, even_color: str, odd_color: str):
+    cell_size = width / BOARD_SIZE
 
     for row in range(BOARD_SIZE):
         for col in range(BOARD_SIZE):
@@ -114,6 +129,9 @@ def move_car(cars, mouse_position, mouse_button, screen_size):
 
     x, y, car_type = cars[clicked_car_index]
 
+    if clicked_car_index == 0 and (x == 4 or y == 4):
+        print("you won the game")
+
     if mouse_button == 1:
         if car_type == HORIZONTAL_CAR:
             moved_car = (x - 1, y, car_type)
@@ -172,8 +190,8 @@ def remove_car(cars, mouse_position, mouse_button, screen_size):
 def main():
     pygame.init()
 
-    screen_size = 600
-    screen = pygame.display.set_mode((screen_size, screen_size))
+    width = 540
+    screen = pygame.display.set_mode((width, width))
 
     gray = "#5f5f5f"
     silver = "#afafaf"
@@ -203,19 +221,6 @@ def main():
 
     cars = levels(1)
 
-    level_keys = [
-        pygame.K_1,
-        pygame.K_2,
-        pygame.K_3,
-        pygame.K_4,
-        pygame.K_5,
-        pygame.K_6,
-        pygame.K_7,
-        pygame.K_8,
-        pygame.K_9,
-        pygame.K_0,
-    ]
-
     clock = pygame.time.Clock()
 
     while True:
@@ -232,7 +237,7 @@ def main():
                         cars,
                         event.pos,
                         event.button,
-                        screen_size,
+                        width,
                     )
                 elif mode == "edit":
                     if event.button == 2:
@@ -240,14 +245,14 @@ def main():
                             cars,
                             event.pos,
                             event.button,
-                            screen_size,
+                            width,
                         )
                     else:
                         cars = add_car(
                             cars,
                             event.pos,
                             event.button,
-                            screen_size,
+                            width,
                         )
 
             elif event.type == pygame.KEYDOWN:
@@ -260,14 +265,14 @@ def main():
                 elif event.key in (pygame.K_RETURN, pygame.K_KP_ENTER):
                     print(cars)
 
-                elif event.key in level_keys:
-                    for key_index, level_key in enumerate(level_keys):
+                elif event.key in LEVEL_KEYS:
+                    for key_index, level_key in enumerate(LEVEL_KEYS):
                         if event.key == level_key:
                             n = key_index + 1
                             cars = levels(n)
 
-        draw_board(screen, screen_size, gray, silver)
-        draw_cars(screen, screen_size, cars, colors)
+        draw_board(screen, width, gray, silver)
+        draw_cars(screen, width, cars, colors)
 
         pygame.display.flip()
 

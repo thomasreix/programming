@@ -1,7 +1,7 @@
 from svg_utils import generate_svg
 
 
-def compute_sponge(iteration):
+def compute_sponge(iteration: int) -> list[tuple[int, int, int]]:
     voxels = [(0, 0, 0)]
     for i in range(iteration):
         new_voxels = []
@@ -24,7 +24,9 @@ def compute_sponge(iteration):
     return voxels
 
 
-def order_voxels(voxels, iteration):
+def order_voxels(
+    voxels: list[tuple[int, int, int]], iteration: int
+) -> list[tuple[int, int, int]]:
     diagonal = 3 ** (iteration + 1)
     ordered_voxels = []
     for i in range(diagonal):
@@ -36,7 +38,14 @@ def order_voxels(voxels, iteration):
     return ordered_voxels
 
 
-def project_voxels(voxels, iteration, size, position, proportions, colors):
+def project_voxels(
+    voxels: list[tuple[int, int, int]],
+    iteration: int,
+    size: int,
+    position: tuple[int, int],
+    proportions: tuple[int, int, int],
+    colors: list[str],
+) -> list[list[str, tuple]]:
     a, b, c = proportions
     polygons = []
     for voxel in voxels:
@@ -102,11 +111,9 @@ def main():
 
     menger_voxels = compute_sponge(iteration)
     ordered_voxels = order_voxels(menger_voxels, iteration)
-    # ordered_voxels = [(0, 0, 0), (1, 0, 0)]
     polygons = project_voxels(
         ordered_voxels, iteration, size, position, proportions, colors
     )
-    print(polygons)
 
     generate_svg(polygons, filename)
 

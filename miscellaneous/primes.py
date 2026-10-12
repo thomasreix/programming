@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 n = 10001
 p = 0
 primes = []

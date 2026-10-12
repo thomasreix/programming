@@ -19,5 +19,5 @@ def generate_svg(polygons, filename):
     file_size = len(svg.encode("utf-8"))
     print(f"{filename}.svg is {file_size} bytes")
 
-    with open(f"{filename}.svg", "w") as file:
+    with open(f"svg/{filename}.svg", "w") as file:
         file.write(svg)

@@ -1,9 +1,7 @@
-import sys
-import pygame
 import random
-import logging
+import sys
 
-logger = logging.getLogger(__name__)
+import pygame
 
 
 def get_next_point(stack, points, next_point):
@@ -21,9 +19,7 @@ def get_next_point(stack, points, next_point):
     )
 
     cross_product = last_vector.x * next_vector.y - next_vector.x * last_vector.y
-    logging.info(
-        f"stack={stack} points={points} last_point={last_point} next_point={next_point} past_point={past_point} current_vector={last_vector} next_vector={next_vector} cross_product={cross_product}"
-    )
+
     if cross_product <= 0:
         stack.pop()
     else:
@@ -86,10 +82,7 @@ def random_points(n, width, height):
 
 
 def main():
-    logging.basicConfig(level=logging.INFO)
-
     pygame.init()
-    logger.info("start")
 
     width, height = 600, 600
     screen = pygame.display.set_mode((width, height))

@@ -1,4 +1,5 @@
 import sys
+
 import pygame
 
 
@@ -129,9 +130,7 @@ def main():
 
         screen.fill(black)
 
-        color = 0
-        for face in faces:
-            color += 1
+        for color, face in enumerate(faces):
             pygame.draw.polygon(screen, colors[color % 2], [face[0], face[1], face[2]])
 
         pygame.display.flip()
