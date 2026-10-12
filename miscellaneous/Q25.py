@@ -65,6 +65,7 @@ def get_fliped_cube(size: int, x: int, y: int, z: int) -> list[list[list]]:
         cube = flip_z(cube, position)
     return cube
 
+
 def count_odd_cubes(cube: list[list[list]]) -> int:
     odd_cubes = 0
     for cube_slice in cube:
