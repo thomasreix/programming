@@ -76,7 +76,7 @@ def count_odd_cubes(cube: list[list[list]]) -> int:
 
 
 def main():
-    size = 4
+    size = 5
 
     odd_cubes_amouts = []
     for x in range(size + 1):
