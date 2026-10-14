@@ -4,67 +4,161 @@ from random import randint
 import pygame
 
 CELL_SIZE = 50
+GRID_WIDTH = 10
+GRID_HEIGHT = 20
+FPS = 8
+
+BACKGROUND_COLOR = "#0F0F0F"
+GRID_COLORS = ["#5F5F5F", "#AFAFAF"]
+TETROMINO_COLORS = [
+    "#0FAFFF",
+    "#0F0FAF",
+    "#FF0F0F",
+    "#FF5F0F",
+    "#FF0FAF",
+    "#FFFF0F",
+    "#0FAF0F",
+]
+
+TETROMINOS = [
+    [(0, 0), (1, 0), (2, 0), (3, 0)],  # I
+    [(0, 0), (0, 1), (1, 1), (2, 1)],  # J
+    [(2, 0), (0, 1), (1, 1), (2, 1)],  # L
+    [(0, 0), (1, 0), (0, 1), (1, 1)],  # O
+    [(1, 0), (2, 0), (0, 1), (1, 1)],  # S
+    [(1, 0), (0, 1), (1, 1), (2, 1)],  # T
+    [(0, 0), (1, 0), (1, 1), (2, 1)],  # Z
+]
 
 
-def generate_tetrominos() -> list[list[tuple[int, int]]]:
-    cells = []
-    for x in range(4):
-        for y in range(2):
-            cell = (x, y)
-            cells.append(cell)
+def generate_grid(width: int, height: int) -> list[list[None]]:
+    grid = []
+    for y in range(height):
+        row = []
+        for x in range(width):
+            row.append(None)
+        grid.append(row)
+    return grid
 
-    permutations = []
-    for i in [0, 1, 2, 3, 5, 6]:
-        for j in [0, 1, 2, 3, 5, 6]:
-            for k in [0, 1, 2, 3, 5, 6]:
-                for l in [0, 1, 2, 3, 5, 6]:
-                    if i < j < k < l:
-                        permutation = [i, j, k, l]
-                        permutations.append(permutation)
 
-    tetrominos = []
-    for permutation in permutations:
-        tetromino = []
-        for p in permutation:
-            x = p % 4
-            y = 0 if p < 4 else 1
-            cell = (x, y)
-            tetromino.append(cell)
+def placeable(grid, tetromino):
+    for x, y in tetromino:
+        if x < 0 or x >= GRID_WIDTH or y < 0 or y >= GRID_HEIGHT:
+            return False
+        if grid[y][x] is not None:
+            return False
+    return True
 
-        neighbors = 0
-        total_neighbors = 0
-        for cell in tetromino:
-            cell_neighbors = 0
-            for neighbor in tetromino:
-                if (
-                    cell[0] + 1 == neighbor[0]
-                    and cell[1] == neighbor[1]
-                    or cell[1] + 1 == neighbor[1]
-                    and cell[0] == neighbor[0]
-                    or cell[0] - 1 == neighbor[0]
-                    and cell[1] == neighbor[1]
-                    or cell[1] - 1 == neighbor[1]
-                    and cell[0] == neighbor[0]
-                ):
-                    cell_neighbors += 1
-                    total_neighbors += 1
-            if cell_neighbors > 0:
-                neighbors += 1
-        if neighbors == 4 and total_neighbors > 5:
-            tetrominos.append(tetromino)
-    tetrominos.pop(1)
-    shifted_tetrominos = []
-    for tetromino in tetrominos:
-        if tetromino[0] != (0, 0):
-            shifted_tetromino = []
-            for cell in tetromino:
-                cell_x, cell_y = cell
-                shifted_cell = (cell_x - 1, cell_y)
-                shifted_tetromino.append(shifted_cell)
-            shifted_tetrominos.append(shifted_tetromino)
-        else:
-            shifted_tetrominos.append(tetromino)
-    return shifted_tetrominos
+
+def move_active(grid, active, dx=0, dy=0):
+    moved = []
+    for cell in active:
+        x, y = cell
+        moved_cell = (x + dx, y + dy)
+        moved.append(moved_cell)
+    if can_place(grid, moved):
+        return moved
+    return active
+
+
+def clear_completed_rows(grid):
+    completed_rows = []
+    for y, row in enumerate(grid):
+        completed = True
+        for cell in row:
+            if cell is None:
+                completed = False
+        if completed:
+            completed_rows.append(y)
+    for row in completed_rows:
+        grid.pop(row)
+        cleared_row = []
+        for cell in range(GRID_WIDTH):
+            cleared_row.append(None)
+        grid.insert(0, cleared_row)
+    return grid
+
+
+def tetromino_size(tetromino, axis):
+    axis_size = 0
+    for cell in tetromino:
+        if cell[axis] > axis_size:
+            axis_size = cell[axis]
+    axis_size += 1
+    return axis_size
+
+def spawn_active(grid, index):
+    tetromino = TETROMINOS[index]
+    width = tetromino_size(tetromino, 0)
+    spawn_x = randint(0, (GRID_WIDTH - width))
+    active = []
+    for cell in tetromino:
+        x, y = cell
+        active_cell = (x + spawn_x, y)
+        active.append(active_cell)
+    if not placeable(grid, active):
+        return None
+    return active
+
+
+def draw_cell(screen, x, y, color):
+    pygame.draw.rect(
+        screen,
+        color,
+        (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE),
+    )
+    pygame.draw.rect(
+        screen,
+        BACKGROUND_COLOR,
+        (x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE),
+        1,
+    )
+
+
+def display_game(screen, grid, active, active_index, preview_index):
+    for y in range(GRID_HEIGHT):
+        for x in range(GRID_WIDTH):
+            color = GRID_COLORS[(x + y) % 2]
+            draw_cell(screen, x, y, color)
+    for y, row in enumerate(grid):
+        for x, index in enumerate(row):
+            if index is not None:
+                color = TETROMINO_COLORS[index]
+                draw_cell(screen, x, y, color)
+    if active is not None:
+        for x, y in active:
+            color = TETROMINO_COLORS[active_index]
+            draw_cell(screen, x, y, color)
+
+    preview_x = GRID_WIDTH + 1
+    for y in range(4):
+        for x in range(4):
+            color = GRID_COLORS[(x + y) % 2]
+            draw_cell(screen, x + preview_x, y, color)
+    
+    if preview_index is not None:
+        tetromino = TETROMINOS[preview_index]
+        width = tetromino_size()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def tetromino_size(tetromino: list[tuple[int, int]]) -> int:
@@ -78,16 +172,6 @@ def tetromino_size(tetromino: list[tuple[int, int]]) -> int:
             height = cell[1]
     size = (lenth + 1, height + 1)
     return size
-
-
-def generate_grid(width: int, height: int) -> list[list[None]]:
-    grid = []
-    for y in range(height):
-        row = []
-        for x in range(width):
-            row.append(None)
-        grid.append(row)
-    return grid
 
 
 def display_grid(
@@ -156,7 +240,9 @@ def display_preview(
 
 
 def update_game(
-    grid: list[list[int | None]], active: tuple[int, int], tetrominos: list[list[tuple[int, int]]]
+    grid: list[list[int | None]],
+    active: tuple[int, int],
+    tetrominos: list[list[tuple[int, int]]],
 ) -> list[list[list[int | None]], tuple[int, int] | None]:
     new_grid = generate_grid(10, 20)
     y = 20
@@ -167,7 +253,7 @@ def update_game(
                 height = tetromino_size(tetrominos[cell])[1]
                 if height == 1:
                     continue
-                if not(y > 20 - height):
+                if not (y > 20 - height):
                     if grid[y + 1][x] is None:
                         grid[y][x] = None
                         new_grid[y + 1][x] = cell
@@ -205,8 +291,27 @@ def move_active(
     grid: list[list],
     active: tuple[int, int],
     distance: int,
-    tetrominos: list[list[tuple[int, int]]]
+    tetrominos: list[list[tuple[int, int]]],
 ) -> list[list[list[int | None]], tuple[int, int]]:
+    new_grid = grid.copy()
+    new_active = []
+    broken = False
+    for y, row in enumerate(grid):
+        for x, cell in enumerate(row):
+            if (x, y) in active:
+                if grid[y][x + distance] is None or (x + distance, y) in active:
+                    new_grid[y][x + distance] = cell
+                    new_grid[y][x] = None
+                    active_cell = (x + distance, y)
+                    new_active.append(active_cell)
+                else:
+                    broken = True
+            else:
+                new_grid[y][x] = cell
+    if not broken:
+        return new_grid, new_active
+    else:
+        return grid, active
 
     new_active = []
     for cell in active:
