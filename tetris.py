@@ -118,7 +118,6 @@ def draw_cell(screen, x: int, y: int, color: str):
     )
 
 
-
 def draw_grid(screen, offset_x, width, height):
     for y in range(height):
         for x in range(width):
@@ -193,10 +192,9 @@ def main():
                         active = move(grid, active, dy=1)
 
                 if event.key == pygame.K_KP_0:
-                    active = rotate(grid, active, 1)
+                    print("you can not rotate")
                 if event.key == pygame.K_KP_ENTER:
-                    active = rotate(grid, active, -1)
-                
+                    print("you can not rotate")
 
         if active is not None:
             display_game(screen, grid, active, active_index)
@@ -215,7 +213,6 @@ def main():
                     active = spawn_active(grid, active_index)
                     if active is None:
                         game_over = True
-
 
         if game_over:
             grid = generate_grid(GRID_WIDTH, GRID_HEIGHT)
