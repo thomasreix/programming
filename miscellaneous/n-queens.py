@@ -4,7 +4,7 @@ QUEEN = 1
 SOLUTIONS = []
 
 
-def empty(n):
+def empty(n: int) -> list[list[int]]:
     board = []
     for y in range(n):
         row = []
@@ -15,7 +15,7 @@ def empty(n):
     return board
 
 
-def rotate(board):
+def rotate(board: list[list[int]]) -> list[list[int]]:
     n = len(board)
     rotated = []
     for col in range(n):
@@ -30,7 +30,7 @@ def flip(board):
     return [row[::-1] for row in board]
 
 
-def unique(solutions):
+def unique(solutions: list[list[list[int]]]) -> list[list[list[int]]]:
     unique_solutions = []
     seen = []
     for board in solutions:
@@ -48,7 +48,7 @@ def unique(solutions):
     return unique_solutions
 
 
-def display(boards, width):
+def display(boards: list[list[list[int]]], width: int):
     if not boards:
         return
     n = len(boards[0])
@@ -67,7 +67,7 @@ def display(boards, width):
         print()
 
 
-def is_safe(board, row, col):
+def is_safe(board: list[list[int]], row: int, col: int) -> bool:
     n = len(board)
     y = row
     left = col
@@ -88,11 +88,13 @@ def is_safe(board, row, col):
     return True
 
 
-def is_solution(n, row):
+def is_solution(n: int, row: int) -> bool:
     return row == n
 
 
-def backtrack(board, row, solutions):
+def backtrack(
+    board: list[list[list]], row: int, solutions: list[list[list[int]]]
+) -> list[list[list[int]]]:
     n = len(board)
     if is_solution(n, row):
         solution = [row[:] for row in board]
