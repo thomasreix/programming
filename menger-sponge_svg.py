@@ -99,14 +99,14 @@ def project_voxels(
 def main():
     filename = "menger-sponge"
 
-    up_color = "#ff0000"
-    left_color = "#00ff00"
-    right_color = "#0000ff"
+    up_color = "#f00"
+    left_color = "#0f0"
+    right_color = "#00f"
     colors = [up_color, left_color, right_color]
 
     iteration = 1
     size = 10
-    position = (200, 100)
+    position = (400, 400)
     proportions = (3, 4, 3)
 
     menger_voxels = compute_sponge(iteration)

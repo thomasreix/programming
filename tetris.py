@@ -3,6 +3,8 @@ from random import randint
 
 import pygame
 
+from tetromino import generate_tetrominos
+
 CELL_SIZE = 50
 GRID_WIDTH = 10
 GRID_HEIGHT = 9
@@ -30,6 +32,7 @@ TETROMINOS = [
     [(0, 0), (1, 0), (1, 1), (2, 1)],  # Z
 ]
 
+TETROMINO_COLORS = generate_tetrominos(4)
 
 def generate_grid(width: int, height: int) -> list[list[None]]:
     grid = []
