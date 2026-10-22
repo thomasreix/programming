@@ -1,8 +1,6 @@
-import sys
 from random import randint
 
 import pygame
-
 from tetromino import generate_tetrominos
 
 CELL_SIZE = 50
@@ -179,11 +177,11 @@ def main() -> int:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
+                return
             if event.type == pygame.KEYDOWN:
                 if event.key in (pygame.K_q, pygame.K_ESCAPE):
                     pygame.quit()
-                    sys.exit()
+                    return
 
                 if event.key == pygame.K_LEFT:
                     active = move(grid, active, dx=-1)

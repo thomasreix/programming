@@ -4,8 +4,8 @@ from tetromino import centered, mesure, most_connections
 def test_centered():
     tetromino_I = ((0, 1), (1, 1), (2, 1), (3, 1))
     tetromino_S = ((1, 0), (1, 1), (2, 1), (2, 2))
-    #assert centered(tetromino_I) == True
-    #assert centered(tetromino_S) == True
+    assert centered(tetromino_I) == True
+    assert centered(tetromino_S) == True
 
 
 def test_mesure():
