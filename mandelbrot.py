@@ -1,7 +1,7 @@
 import pygame
 
 
-def recursive(z, c, p):
+def recursive(z: complex, c: complex, p: complex) -> int:
     for i in range(256):
         if z == 0:
             z = c
@@ -12,7 +12,7 @@ def recursive(z, c, p):
     return i
 
 
-def coloring(i, r, g, b):
+def coloring(i: int, r: int, g: int, b: int) -> tuple[int, int, int]:
     red = i * r % 255
     blue = i * g % 255
     green = i * b % 255
