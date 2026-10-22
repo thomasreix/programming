@@ -1,4 +1,4 @@
-from svg_utils import generate_svg
+from svg_utils import render
 
 
 def main():
@@ -8,7 +8,7 @@ def main():
         ["#0ff", (30, 30), (30, 180), (130, 180), (130, 30)],
     ]
 
-    generate_svg(polygons, filename)
+    render(polygons, filename)
 
 
 if __name__ == "__main__":

@@ -34,6 +34,7 @@ TETROMINOS = [
 
 TETROMINO_COLORS = generate_tetrominos(4)
 
+
 def generate_grid(width: int, height: int) -> list[list[None]]:
     grid = []
     for y in range(height):
@@ -158,7 +159,7 @@ def display_game(
         draw_cell(screen, x, y, color)
 
 
-def main():
+def main() -> int:
     pygame.init()
     screen_width = (GRID_WIDTH + 5) * CELL_SIZE
     screen_height = GRID_HEIGHT * CELL_SIZE

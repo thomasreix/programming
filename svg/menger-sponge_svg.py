@@ -1,4 +1,4 @@
-from svg_utils import generate_svg
+from svg_utils import render
 
 
 def compute_sponge(iteration: int) -> list[tuple[int, int, int]]:
@@ -115,7 +115,7 @@ def main():
         ordered_voxels, iteration, size, position, proportions, colors
     )
 
-    generate_svg(polygons, filename)
+    render(polygons, filename)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-def generate_svg(polygons, filename):
+def render(polygons, filename):
     svg = """<svg xmlns="http://www.w3.org/2000/svg">"""
 
     for polygon in polygons:
@@ -19,5 +19,5 @@ def generate_svg(polygons, filename):
     file_size = len(svg.encode("utf-8"))
     print(f"{filename}.svg is {file_size} bytes")
 
-    with open(f"svg/{filename}.svg", "w") as file:
+    with open(f"renders/{filename}.svg", "w") as file:
         file.write(svg)
