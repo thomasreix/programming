@@ -81,7 +81,7 @@ int main() {
   printf("newline: \n");                    // add a newline with \n
   printf("tab_1:\ttab_2:\ttab_3:\t \n");    // add a tab with \t
   printf("\"quote\" is quoted \n");         // add a quote with \"
-  printf("nul character: \0 \n\n\n\n\n\n"); // add a nul character with \0"
+  printf("nul character: \0 \n\n\n\n\n\n"); // add a nul character with \0
 
   int x;     // declaration
   x = 1;     // initialization
