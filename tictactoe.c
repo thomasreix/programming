@@ -173,8 +173,6 @@ int bot(int board[3][3]){
             return cell + 1;
         }
     }
-
-    return 0;
 }
 
 bool check_win(int size, int board[size][size], int player){
