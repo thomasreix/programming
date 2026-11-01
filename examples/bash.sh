@@ -96,7 +96,7 @@ while [[ $counter -lt 5 ]]; do
     ((++counter))
 done
 
-greater_than() {
+greater_than() {z
     local num_A=$1
     local num_B=$2
     if [[ $num_A -gt $num_B ]]; then
