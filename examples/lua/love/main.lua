@@ -6,6 +6,14 @@ local function color(r, g, b)
     end
 end
 
+function phisics(object, force)
+    local drag = {}
+    drag.x, drag.y = 1, 1
+    object.velocity = object.velocity + force
+    object.position = object.position + object.speed * object.velocity
+    object.velocity = object.velocity - drag
+end
+
 
 function love.load()
     backgroundColor = color(2, 1, 2)
@@ -18,7 +26,7 @@ function love.load()
 
     pacman = {}
     pacman.x, pacman.y = 100, 200
-    pacman.speed = 5
+    pacman.speed = {5, 5}
     pacman.ate = false
     pacman.mouth = 0
     pacman.chew = true
@@ -102,14 +110,9 @@ function love.update(dt)
         kirby.idle = true
     end
 
-    if love.keyboard.isDown("right") and kirby.x < 960 - kirby.size then
-        kirby.position.x = kirby.position.x + kirby.speed
-    end
-    if love.keyboard.isDown("left") and kirby.x > 0 then
-        kirby.position.x = kirby.position.x - kirby.speed
-    end
-
-    kirby.position.x = kirby.position.x + kirby.speed
+    force = {x = 0, y = 0}
+    if love.keyboard.isDown("right") and kirby.x < 960 - kirby.size then force.x = force.x + 1 end
+    if love.keyboard.isDown("left") and kirby.x > 0 then force.x = force.x - 1 end
 
     kirby.tick = kirby.tick + 1
     if kirby.tick > kirby.delay then
@@ -125,9 +128,9 @@ function love.update(dt)
         kirby.jump = true
     end
 
-    if kirby.jump then
-        kirby.velocity.y = 3 
-    end
+    if kirby.jump then force.y = 3 end
+
+    phisics(kirby, force)
 end
 
 function love.draw()
@@ -154,4 +157,3 @@ function love.draw()
     love.graphics.setColor(alpha)
     love.graphics.draw(kirby.sprite.sheet, kirby.sprite[kirby.sprite.current], kirby.x, kirby.y, 0, kirby.scale, kirby.scale)
 end
-
