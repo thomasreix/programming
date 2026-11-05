@@ -15,11 +15,11 @@ print("Hello World")
 print("start", "finish") -- , will seperate with a tab
 print("concatenate ".."is concatenated") -- use .. to concatenate
 
-local var = nil
-local num = 5
-local str = "yes"
-local bol = true
-local tbl = { 1, 2, 3}
+var = nil
+num = 5
+str = "yes"
+bol = true
+tbl = { 1, 2, 3}
 
 local square = 49 -- initialise a variable
 local root = math.sqrt(square)
