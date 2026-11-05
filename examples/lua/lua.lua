@@ -18,8 +18,8 @@ print("concatenate ".."is concatenated") -- use .. to concatenate
 var = nil
 num = 5
 str = "yes"
-bool = true
-tabl = { 1, 2, 3}
+bol = true
+tbl = { 1, 2, 3}
 
 local square = 49 -- initialise a variable
 local root = math.sqrt(square)
@@ -142,3 +142,67 @@ end
 
 local weather = cloudy and "stay at home" or "go outside"
 print("you should "..weather)
+print()
+
+local digits = ""
+for i = 0, 9 do
+    digits = digits..i
+end
+print(digits)
+
+local even = ""
+for i = 8, 0, -2 do
+    even = even..i
+end
+print("pairs: "..even)
+
+local count = 0
+while true do
+    count = count + 1
+    if count >= 10 then
+        print("break: count = "..count)
+        break
+    end
+end
+
+local timer = 40
+repeat -- a while loop that will run at least once
+    print("running")
+until timer > 10
+print()
+
+print("what is your name ?")
+local answer = "mickael" --io.read()
+print("hello "..answer)
+
+io.write("enter your name: ")
+local answer = "chandler" --io.read()
+print(answer)
+print("welcome "..answer)
+print()
+
+local tbl = {false, 7, {"cat", nil}}
+print(tbl[0]) -- the table starts at 1 not 0
+
+local primes = {1, 2, 3, 5, 11, 13}
+table.remove(primes, 1)
+table.insert(primes, 4, 7)
+local primestr = ""
+for prime = 1, #primes do
+    primestr = primestr..primes[prime].." "
+end
+print(primestr)
+
+for i, prime in pairs(primes) do
+    if i == 4 then
+        print("the "..i.."th prime is "..prime)
+    end
+end
+
+local tictactoe = {
+    {"X", "O", nil},
+    {nil, "O", "X"},
+    {nil, nil, "O"},
+}
+print("the board size is "..#tictactoe.."*"..#tictactoe)
+print("the center cell is "..tictactoe[2][2])
