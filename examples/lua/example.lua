@@ -15,11 +15,11 @@ print("Hello World")
 print("start", "finish") -- , will seperate with a tab
 print("concatenate ".."is concatenated") -- use .. to concatenate
 
-var = nil
-num = 5
-str = "yes"
-bol = true
-tbl = { 1, 2, 3}
+local var = nil
+local num = 5
+local str = "yes"
+local bol = true
+local tbl = { 1, 2, 3}
 
 local square = 49 -- initialise a variable
 local root = math.sqrt(square)
@@ -206,3 +206,91 @@ local tictactoe = {
 }
 print("the board size is "..#tictactoe.."*"..#tictactoe)
 print("the center cell is "..tictactoe[2][2])
+
+local nums = { 1, 2, 3, 4, 5 }
+print(table.concat(nums, " ")) -- use concat to easily print tables
+
+local residence = {
+    street = "main",
+    house = 46
+}
+
+print("I live at the "..residence["house"].."th house on "..residence["street"].." street")
+print()
+
+local function greetings(name, time)
+    if time >= 7 and time <=12 then
+        print("good moorning "..name)
+    elseif time > 12 and time < 18 then
+        print("good afternoon "..name)
+    elseif time >= 18 and time <= 21 then
+        print("good evening "..name)
+    else
+        print("good night "..name)
+    end
+end
+
+greetings("martin", 12)
+
+local function factorial(number)
+    local multiply = number
+    local answer = 1
+    while multiply > 0 do
+        answer = answer * multiply
+        multiply = multiply - 1
+    end
+    return answer
+end
+
+local numO = 4
+local numF = factorial(numO)
+print("the factorial of "..numO.." is "..numF)
+print()
+
+io.output("file.txt")
+local content = [[
+this
+file
+was
+writen
+]]
+io.write(content)
+io.close()
+
+io.input("file.txt")
+local data = io.read("a")
+print(data)
+
+local file = io.open("file.txt", "w")
+if file ~= nil then
+    file:write("hello there")
+    file:close()
+else
+    print("could not open file.txt")
+end
+
+local mod = require("custom")
+local sum = mod.sum(5, 3)
+
+local function Vehicule(wheels)
+    return {
+        wheels = wheels or 4,
+        gaz = function ()
+            print("full")
+        end
+    }
+end
+
+local car = Vehicule()
+local bus = Vehicule(6)
+
+print("the vehicule with "..bus.wheels.." wheels")
+
+local function Bike(color)
+    local bike = Vehicule(2)
+    bike.color = color
+    return bike
+end
+
+local bike = Bike("blue")
+
