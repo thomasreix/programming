@@ -27,17 +27,27 @@ local function Spaceship(debugging)
 
             love.graphics.polygon(
                 fillType,
-                self.position.x + ((4 / 3) * self.radius) * math.cos(self.orientation),
-                self.position.y - ((4 / 3) * self.radius) * math.sin(self.orientation),
-                self.position.x - self.radius * ((2 / 3) * math.cos(self.orientation) + math.sin(self.orientation)),
-                self.position.y + self.radius * ((2 / 3) * math.sin(self.orientation) - math.cos(self.orientation)),
-                self.position.x - self.radius * ((2 / 3) * math.cos(self.orientation) - math.sin(self.orientation)),
-                self.position.y + self.radius * ((2 / 3) * math.sin(self.orientation) + math.cos(self.orientation))
+                self.position.x - self.radius * (((2 / 3) * math.cos(self.orientation)) + math.sin(self.orientation) / 2),
+                self.position.y + self.radius * (((2 / 3) * math.cos(self.orientation)) - math.sin(self.orientation) / 2),
+                self.position.x - self.radius * self.thrust.flame + math.cos(self.orientation),
+                self.position.y + self.radius * self.thrust.flame + math.cos(self.orientation),
+                self.position.x - self.radius * (((2 / 3) * math.cos(self.orientation)) - math.sin(self.orientation) / 2),
+                self.position.y + self.radius * (((2 / 3) * math.cos(self.orientation)) + math.sin(self.orientation) / 2)
+
             )
         end,
 
-        draw = function (self)
+        draw = function (self, dt)
             local opacity = 1
+
+            if self.thrusting then
+            --     if not self.thrust.big_flame then
+            --         self.thrust.big_flame = self.thrust.big_flame - 1 * dt
+            --     end
+
+                self:drawFlame("fill", {1, 0.5, 0.1})
+            end
+
             if debugging then
                 love.graphics.setColor(1, 0, 0)
                 love.graphics.rectangle("fill", self.position.x - 1, self.position.y -2, 2, 2)

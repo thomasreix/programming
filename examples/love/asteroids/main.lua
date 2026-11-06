@@ -32,6 +32,6 @@ function love.update(dt)
 
 end
 
-function love.draw()
-    spaceship:draw()
+function love.draw(dt)
+    spaceship:draw(dt)
 end
